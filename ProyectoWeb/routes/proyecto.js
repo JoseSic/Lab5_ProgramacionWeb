@@ -1,52 +1,63 @@
 var express = require('express');
 var router = express.Router();
-var crud = require('../CRUD/CRUD')
+var crud = require('../CRUD/CRUD');
+var crudMongo = require('../CRUD/CRUDMONGO');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  let temp = crud.GetTodos();
-  if(!temp){
-    res.json({Codigo: 404, mensaje: "No se han encontrado datos", datos: ""});
-  }else{
-    res.json({codigo: 200, mensaje:"Listado: ", datos: temp});
-  }
-  
+  res.setHeader('Content-Type', 'application/json');
+
+  crudMongo.GetTodos().then(response => {
+      if(response.length > 0){
+          res.json(response);
+      }else{
+          res.sendStatus(404);
+      }
+  }).catch(error => console.error(error));
 });
 
 router.get('/:id', function(req, res, next) {
-  let temp = crud.GetID(req.params.id);
-  if(!temp){
-    res.json({Codigo: 404, mensaje: "No se han encontrado datos", datos: ""});
-  }else{
-    res.json({codigo: 200, mensaje:"Dato Encontrado ", datos: temp});
-  }
+  res.setHeader('Content-Type', 'application/json');
+  crudMongo.GetID(req.params.id).then(response => {
+      if(response.length > 0){
+          res.json(response);
+      }else{
+          res.sendStatus(404);
+      }
+  }).catch(error => console.error(error));
 });
 
 router.post('/Dato', function(req, res, next) {
-  let temp = crud.PostData(req.body);
-  if(temp){
-    res.json({Codigo: 201, mensaje: "Agregado con éxito", datos: temp});
-  }else{
-    res.json({codigo: 404, mensaje:"No Agregado ", datos: ""});
-  }
+  res.setHeader('Content-Type', 'application/json');
+  crudMongo.PostData(req.body).then(response => {
+      if(response.result.ok){
+          res.sendStatus(201);
+      }else{
+          res.sendStatus(404);
+      }
+  }).catch(error => console.error(error));
 });
 
 router.put('/:id', function(req, res, next) {
-  let temp = crud.PutData(req.body, req.params.id);
-  if(temp){
-    res.json({Codigo: 204, mensaje: "Modificado con éxito", datos: temp});
-  }else{
-    res.json({codigo: 404, mensaje:"No se encontro al alemento ", datos: ""});
-  }
+  res.setHeader('Content-Type', 'application/json');
+  crudMongo.PutData(req.body, req.params.id).then(response => {
+    if(response.result.ok){
+        res.sendStatus(201);
+    }else{
+        res.sendStatus(404);
+    }
+}).catch(error => console.error(error));
 });
 
 router.delete('/:id', function(req, res, next) {
-  let temp = crud.DeleteData(req.params.id);
-  if(temp){
-    res.json({Codigo: 204, mensaje: "Eliminado con éxito", datos: ""});
-  }else{
-    res.json({codigo: 404, mensaje:"No se encontro al alemento ", datos: ""});
-  }
+  res.setHeader('Content-Type', 'application/json');
+  crudMongo.DeleteData(req.params.id).then(response => {
+    if(response.result.ok){
+        res.sendStatus(201);
+    }else{
+        res.sendStatus(404);
+    }
+}).catch(error => console.error(error));
 });
 
 module.exports = router;
