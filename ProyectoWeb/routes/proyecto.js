@@ -14,7 +14,7 @@ client.on('error', function (err) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('content-type', 'application/json');
 
     return client.get('Galeria', (err, result) => {
         if (result) {
@@ -41,7 +41,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/:id', function (req, res, next) {
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('content-type', 'application/json');
 
     return client.get(req.params.id, (err, result) => {
         if (result) {
@@ -69,7 +69,7 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.post('/Dato', function (req, res, next) {
-    if (req.headers["Content-Type"] == 'application/json') {
+    if (req.headers["content-type"] == 'application/json') {
         crudMongo.PostData(req.body).then(response => {
             if (response.result.n > 0) {
                 res.status(201).send();
