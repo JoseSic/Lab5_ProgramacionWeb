@@ -2,6 +2,7 @@ var MockGaleria = require('../MocKImagen');
 var MongoClient = require('mongodb').MongoClient;
 var db;
 var collection;
+var ObjectId = require('mongodb').ObjectId;
 
 MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true, poolSize: 10 }).then(client => {
     db = client.db('Imagen');
@@ -14,7 +15,7 @@ function GetTodos(){
 
 function GetID(id){
     console.log(id)
-    return collection.find({ id: id}).toArray();
+    return collection.find({_id: ObjectId(id)}).toArray();
 }
 
 function PostData(data){
@@ -22,10 +23,10 @@ function PostData(data){
 }
 
 function PutData(data, id){
-    return collection.updateOne({ id: id}, { $set: data });
+    return collection.updateOne({ _id: ObjectId(id)}, { $set: data });
 }
 function DeleteData( id){
-    return collection.deleteOne({ id: id });
+    return collection.deleteOne({ _id: ObjectId(id) });
 }
 
 
