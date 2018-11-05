@@ -3,8 +3,9 @@ var router = express.Router();
 var crud = require('../CRUD/CRUD');
 var crudMongo = require('../CRUD/CRUDMONGO');
 var redis = require('redis');
-var client = redis.createClient();
-
+//var client = redis.createClient();
+var client = redis.createClient(6379,'hostredis');
+const upload = require('../CRUD/File-upload');
 client.on('connect', function () {
     console.log('connected');
 });
@@ -12,6 +13,14 @@ client.on('error', function (err) {
     console.log('Something went wrong ' + err);
 });
 
+const singleUpload = upload.single('image');
+router.post('/Upload', function (req, res) {
+    singleUpload(req, res, function (err) {
+        return res.json({
+            'imageURL': req.file.location
+        });
+    })
+});
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.setHeader('content-type', 'application/json');
