@@ -26,7 +26,7 @@ _Debes de tener istalado redis ya que en el presente proyecto se usa con fines d
 
 _Crea una copia local del presente proyecto_
 
-_Debes de crear un conexión con Mongo y debes tener una base de datos llamada Imagen y una Colección llamada Imagen. En la Carpeta CRUD archivo CRUDMONGO se encuentra el siguiente código donde deberas realizar la conección con MONGO DB_
+_Debes de crear un conexión con Mongo y debes tener una base de datos llamada Imagen y una Colección llamada Imagen. En la Carpeta CRUD archivo CRUDMONGO se encuentra el siguiente código donde deberas realizar la conexión con MONGO DB_
 
 ```
 MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true })
@@ -36,11 +36,18 @@ MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true })
 }).catch(error => console.error(error));
 ```
 
-_De igual forma debes de realizar una conexión con REDIS. En la carpeta routes, archivo Proyecto.js encontrará la siguiente linea de código donde podrás crear una conección de redis_
+_De igual forma debes de realizar una conexión con REDIS. En la carpeta routes, archivo Proyecto.js encontrará la siguiente linea de código donde podrás crear una conexión de redis_
 
 ```
 var client = redis.createClient();
 ```
+_En la consola del editor que se utilizando se debe ingresar a la carpeta PROYECTOWEB y ejecutar el siguiente comando, para instalar todas las dependencias del proyecto._
+```
+$ npm install
+```
+
+### Ejecutar Aplicación
+_Ejecute el comando npm start en la cosola. Navegue hacia http://localhost:3000/. El API estará corriendo en esa direccion url._
 
 
 ## Autores ✒️
