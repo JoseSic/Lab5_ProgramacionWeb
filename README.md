@@ -1,7 +1,7 @@
 # Back End - Proyecto Final Progrmación Web
 
 _El presente proyecto es un desarrollo realizado en el curso "Programación Web" de la Universidad Rafael Landivar, que tiene como objetivo proveer los recursos solicitados de una aplicación mediante los verbos GET, POST, DELETE, y PUT. El presente proyecto tiene como tematica principal ser un servidor para aplicaciones tipo Instagram, donde prodrán crear, editar y eliminar post con fotos._
-
+El presente API esta realizado con Nodejs + ExpressJs, con una base no relacional MONGODB y redis para el almacenamiento en cache.
 ## Comenzando 🚀
 
 _Es importante cumplir con los siguientes pasos para poder tener en funcionamiento localmente el presente proyecto_
