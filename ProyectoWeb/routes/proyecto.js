@@ -4,7 +4,7 @@ var crud = require('../CRUD/CRUD');
 var crudMongo = require('../CRUD/CRUDMONGO');
 var redis = require('redis');
 //var client = redis.createClient();
-var client = redis.createClient(6379,'hostredis');
+var client = redis.createClient();
 const upload = require('../CRUD/File-upload');
 client.on('connect', function () {
     console.log('connected');
@@ -13,14 +13,29 @@ client.on('error', function (err) {
     console.log('Something went wrong ' + err);
 });
 
+setInterval(function () {
+    client.ping(function (err, result) {
+        if (result) {
+            console.log("Redis pinged");
+        }
+
+        if (err) {
+            console.log("There was an error " + err);
+        }
+    })
+
+}, 60000)
+
 const singleUpload = upload.single('image');
 router.post('/Upload', function (req, res) {
     singleUpload(req, res, function (err) {
-        return res.json({
+        return res.status(200).json({
             'imageURL': req.file.location
         });
     })
 });
+
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.setHeader('content-type', 'application/json');

@@ -4,7 +4,7 @@ var db;
 var collection;
 var ObjectId = require('mongodb').ObjectId;
 //MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true, poolSize: 10 })
-MongoClient.connect("mongodb://hostmongo:27017", { useNewUrlParser: true })
+MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true })
 .then(client => {
     db = client.db('Imagen');
     collection = db.collection('Imagen');
